@@ -3,6 +3,7 @@ import BarChart from './components/BarChart';
 import DoughnutChart from './components/DoughnutChart';
 import LineChart from './components/LineChart';
 import PlaceContentCenter from './components/PlaceContentCenter';
+import PieChart from './components/PieChart';
 
 export default function App() {
   return (
@@ -23,6 +24,12 @@ export default function App() {
         <Card.Title>Line Chart</Card.Title>
         <Card.Body>
           <LineChart />
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Title>Pie Chart</Card.Title>
+        <Card.Body>
+          <PieChart />
         </Card.Body>
       </Card>
     </PlaceContentCenter>
