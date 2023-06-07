@@ -27,7 +27,6 @@ export default function DoughnutChart() {
         responseType: 'json',
       })
         .then((response) => {
-          console.log(response.data);
           setChart(response.data.data);
         })
         .catch((error) => {
