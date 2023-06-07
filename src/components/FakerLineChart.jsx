@@ -25,7 +25,7 @@ function generateMultipleLinesData(lines, length) {
   const data = [];
   for (let i = 0; i < lines; i++) {
     const line = {
-      label: faker.person.firstName(),
+      label: faker.person.fullName(),
       data: generateLineData(length),
     };
     data.push(line);
