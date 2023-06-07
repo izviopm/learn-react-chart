@@ -1,7 +1,8 @@
-import PlaceContentCenter from './components/PlaceContentCenter';
 import Card from './components/Card';
 import BarChart from './components/BarChart';
 import DoughnutChart from './components/DoughnutChart';
+import LineChart from './components/LineChart';
+import PlaceContentCenter from './components/PlaceContentCenter';
 
 export default function App() {
   return (
@@ -16,6 +17,12 @@ export default function App() {
         <Card.Title>Doughnut Chart</Card.Title>
         <Card.Body>
           <DoughnutChart />
+        </Card.Body>
+      </Card>
+      <Card>
+        <Card.Title>Line Chart</Card.Title>
+        <Card.Body>
+          <LineChart />
         </Card.Body>
       </Card>
     </PlaceContentCenter>

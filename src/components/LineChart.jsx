@@ -1,0 +1,85 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import { React, useState, useEffect } from 'react';
+import { Chart as ChartJS, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
+import { Line } from 'react-chartjs-2';
+import axios from 'axios';
+
+ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement);
+
+export default function LineChart() {
+  const [chart, setChart] = useState([]);
+
+  const baseUrl = 'https://api.coinranking.com/v2/coins/?limit=10';
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+  const apiKey = 'coinranking0389a0f5d9c8b31e8dd49ec83d42204ed6cbdc310d7616d3';
+
+  useEffect(() => {
+    const fetchCoins = async () => {
+      await axios({
+        method: 'GET',
+        url: `${proxyUrl}${baseUrl}`,
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': `${apiKey}`,
+          'Access-Control-Allow-Origin': '*',
+        },
+        responseType: 'json',
+      })
+        .then((response) => {
+          setChart(response.data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };
+    fetchCoins();
+  }, [baseUrl, proxyUrl, apiKey]);
+
+  const data = {
+    labels: chart?.coins?.map((x) => x.name),
+    datasets: [
+      {
+        label: `${chart?.coins?.length} Coins Available`,
+        data: chart?.coins?.map((x) => x.price),
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+    legend: {
+      labels: {
+        fontSize: 26,
+      },
+    },
+  };
+
+  return (
+    <div>
+      <Line data={data} height={400} options={options} />
+    </div>
+  );
+}
